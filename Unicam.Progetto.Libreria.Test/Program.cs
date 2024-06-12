@@ -1,2 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using Unicam.Progetto.Libreria.Test;
+
+AdoNetExample e =   new AdoNetExample();
+e.RunExample();
