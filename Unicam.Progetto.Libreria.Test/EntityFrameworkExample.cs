@@ -20,6 +20,8 @@ namespace Unicam.Progetto.Libreria.Test
             AddLibro(ctx);
             //EditLibroCompleto(ctx);
             //EditProprietaLibro(ctx);
+            //UpdateConLettura(ctx);
+            //CORREGGERE!
         }
 
         //il contesto glielo iniettiamo
@@ -94,6 +96,13 @@ namespace Unicam.Progetto.Libreria.Test
             entry.State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
             ctx.SaveChanges();
 
+        }
+
+        private void UpdateConLettura(MyDbContext ctx)
+        {
+            var libro = ctx.Libri.Where(w => w.LibroId == 1001).FirstOrDefault();
+            libro.Editore = "Zanichelli";
+            ctx.SaveChanges();
         }
 
         //EF gestisce automaticamente anche le entità correlate
