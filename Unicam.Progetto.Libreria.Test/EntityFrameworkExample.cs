@@ -14,12 +14,14 @@ namespace Unicam.Progetto.Libreria.Test
     {
         public void RunExample()
         {
+
+            //as no tracking dovrebbe risolvere il problema di di sotto, se la query non la voglio tracciare ma la voglio fare e basta
             var ctx = new MyDbContext();
-            var libri = ctx.Libri.ToList();
+            var libri = ctx.Libri.AsNoTracking().ToList();
             QueryDiFiltro(ctx);
             AddLibro(ctx);
             //EditLibroCompleto(ctx);
-            //EditProprietaLibro(ctx);
+            EditProprietaLibro(ctx);
             //UpdateConLettura(ctx);
             //CORREGGERE!
         }
