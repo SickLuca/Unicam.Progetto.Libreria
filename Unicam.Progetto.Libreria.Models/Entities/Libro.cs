@@ -17,6 +17,7 @@ namespace Unicam.Progetto.Libreria.Models.Entities
 
         public string Editore { get; set; }
 
-        public List<Categoria> Categorie { get; set; }
+        //questa sarà la nostra proprietà di navigazione che ci permette di passare da un entità all'altra
+        public ICollection<LibriCategorie> CategorieDelLibro { get; set; }
     }
 }

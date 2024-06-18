@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using Unicam.Progetto.Libreria.Models.Entities;
@@ -23,7 +24,11 @@ namespace Unicam.Progetto.Libreria.Models.Configurations
                 .HasMaxLength(100);
             builder.Property(p => p.Editore)
                 .HasMaxLength(100);
-            
+            //specifichiamo la relazione
+            builder.HasMany(b => b.CategorieDelLibro)
+            .WithOne(bc => bc.LibroJoin)
+            .HasForeignKey(bc => bc.LibroId);
+
         }
     }
 }

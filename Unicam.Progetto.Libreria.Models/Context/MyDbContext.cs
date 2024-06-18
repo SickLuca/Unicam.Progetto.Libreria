@@ -19,6 +19,8 @@ namespace Unicam.Progetto.Libreria.Models.Context
 
         public DbSet<Categoria> Categorie { get; set; }
 
+        public DbSet<LibriCategorie> Relazioni { get; set; }
+
         /*Cosi facendo ho detto ad EF che voglio gestire queste entità per fare il mapping automatico */
 
         //deve sapere quale configurazioni deve leggere, lo facciamo overrideando il metodo onmodelcreating
