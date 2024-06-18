@@ -13,6 +13,6 @@ namespace Unicam.Progetto.Libreria.Entities
         public int CategoriaId { get; set; }
         public string NomeCategoria { get; set; }
 
-        public ICollection<LibriCategorie> LibriDellaCategoria { get; set; }
+        public virtual ICollection<LibriCategorie> LibriDellaCategoria { get; set; }
     }
 }

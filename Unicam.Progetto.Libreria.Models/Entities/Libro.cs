@@ -18,6 +18,6 @@ namespace Unicam.Progetto.Libreria.Models.Entities
         public string Editore { get; set; }
 
         //questa sarà la nostra proprietà di navigazione che ci permette di passare da un entità all'altra
-        public ICollection<LibriCategorie> CategorieDelLibro { get; set; }
+        public virtual ICollection<LibriCategorie> CategorieDelLibro { get; set; }
     }
 }

@@ -41,7 +41,7 @@ namespace Unicam.Progetto.Libreria.Models.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                //.UseLazyLoadingProxies()
+                .UseLazyLoadingProxies()
                 .UseSqlServer("data source=(LocalDb)\\MSSQLLocalDB;Initial catalog=Libreria;User Id=progetto;Password=progetto");
         }
     }

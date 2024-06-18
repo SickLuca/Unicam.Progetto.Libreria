@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Unicam.Progetto.Libreria.Abstractions;
+using Unicam.Progetto.Libreria.Entities;
 using Unicam.Progetto.Libreria.Models.Context;
 using Unicam.Progetto.Libreria.Models.Entities;
 
@@ -20,10 +21,14 @@ namespace Unicam.Progetto.Libreria.Test
             var libri = ctx.Libri.AsNoTracking().ToList();
             QueryDiFiltro(ctx);
             AddLibro(ctx);
+            AddCategoria(ctx);
+            AddRelazione(ctx);
             //EditLibroCompleto(ctx);
-            EditProprietaLibro(ctx);
+            //EditProprietaLibro(ctx);
             //UpdateConLettura(ctx);
             //CORREGGERE!
+            //LoadWithEagerLoading(ctx);
+            LoadWithLazyLoading(ctx);
         }
 
         //il contesto glielo iniettiamo
@@ -107,7 +112,50 @@ namespace Unicam.Progetto.Libreria.Test
             ctx.SaveChanges();
         }
 
+        private void AddCategoria(MyDbContext ctx)
+        {
+            var newCategoria = new Categoria();
+            newCategoria.NomeCategoria = "Avventura";
+
+            ctx.Categorie.Add(newCategoria);
+
+            ctx.SaveChanges();
+        }
+
+
+        private void AddRelazione(MyDbContext ctx)
+        {
+            var newRelazione = new LibriCategorie();
+            newRelazione.LibroId = 3;
+            newRelazione.CategoriaId = 1;
+
+            ctx.Relazioni.Add(newRelazione);
+
+            ctx.SaveChanges();
+        }
         //EF gestisce automaticamente anche le entità correlate
+
+        //
+
+
+        //questo si fa perche le prop di navigazione altrimenti non vengono caricate di default
+        public void LoadWithEagerLoading (MyDbContext ctx)
+        {
+            var libro = ctx.Libri
+                .Include(w => w.CategorieDelLibro)
+                //query
+                .Where(p => p.LibroId == 1).First();
+        }
+
+        //per lazy loading devo marcare prop di navigazione con virtual
+        public void LoadWithLazyLoading(MyDbContext ctx)
+        {
+            var libro = ctx.Libri
+                .Where(w => w.LibroId == 1).First();
+
+            var nome = libro.CategorieDelLibro.First().CategoriaJoin;
+
+        }
 
     }
 }
