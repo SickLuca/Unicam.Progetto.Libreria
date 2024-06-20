@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unicam.Progetto.Libreria.Ab
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unicam.Progetto.Libreria.Models", "Unicam.Progetto.Libreria.Models\Unicam.Progetto.Libreria.Models.csproj", "{4FD37637-7202-457C-B40C-5413DB106FAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unicam.Progetto.Libreria.Web", "Unicam.Progetto.Libreria.Web\Unicam.Progetto.Libreria.Web.csproj", "{ABE33F5A-0A61-4ECE-A903-ECEF2AA4C382}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unicam.Progetto.Libreria.Web", "Unicam.Progetto.Libreria.Web\Unicam.Progetto.Libreria.Web.csproj", "{ABE33F5A-0A61-4ECE-A903-ECEF2AA4C382}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unicam.Progetto.Libreria.Application", "Unicam.Progetto.Libreria.Application\Unicam.Progetto.Libreria.Application.csproj", "{10F6F6CF-C5EA-470D-B727-3553C29A3A65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{ABE33F5A-0A61-4ECE-A903-ECEF2AA4C382}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABE33F5A-0A61-4ECE-A903-ECEF2AA4C382}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABE33F5A-0A61-4ECE-A903-ECEF2AA4C382}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10F6F6CF-C5EA-470D-B727-3553C29A3A65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10F6F6CF-C5EA-470D-B727-3553C29A3A65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10F6F6CF-C5EA-470D-B727-3553C29A3A65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10F6F6CF-C5EA-470D-B727-3553C29A3A65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
