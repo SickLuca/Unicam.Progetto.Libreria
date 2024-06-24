@@ -7,7 +7,7 @@ using Unicam.Progetto.Libreria.Models.Entities;
 
 namespace Unicam.Progetto.Libreria.Application.Models.Requests
 {
-
+    //fluent valuation per validare questi campi nel momento dell inserimento 
     //qui ci metteremo dentro tutti i parametri che serviranno per la creazione della richiesta CreateLibro, ci mappa la richiesta della creazione
     //Questa richiesta ora può essere passata in ingresso all'interno del metodo httppost createLibro che troviamo nel controller
     public class CreateLibroRequest

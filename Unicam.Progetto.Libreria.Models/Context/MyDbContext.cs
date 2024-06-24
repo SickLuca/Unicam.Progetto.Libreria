@@ -12,7 +12,17 @@ namespace Unicam.Progetto.Libreria.Models.Context
 {
     public class MyDbContext : DbContext
     {
+        public MyDbContext()
+        { 
+        }
         
+        //costruttore con quest'ingresso per configurare come servizio entity framework
+        public MyDbContext(DbContextOptions<MyDbContext> config)
+        {
+
+        }
+
+
         public DbSet<Libro> Libri {  get; set; }
 
         public DbSet<Utente> Utenti { get; set; }

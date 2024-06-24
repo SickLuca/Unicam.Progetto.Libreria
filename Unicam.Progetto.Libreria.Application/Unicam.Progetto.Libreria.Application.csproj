@@ -8,6 +8,11 @@
     <OutputType>Library</OutputType>
   </PropertyGroup>
 
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Unicam.Progetto.Libreria.Models\Unicam.Progetto.Libreria.Models.csproj" />
   </ItemGroup>

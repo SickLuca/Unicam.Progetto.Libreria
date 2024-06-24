@@ -10,5 +10,9 @@ namespace Unicam.Progetto.Libreria.Application.Abstractions.Services
     public interface ILibroService
     {
         List<Libro> GetLibri();
+
+        public void AddLibro(Libro libro);
     }
+
+    
 }

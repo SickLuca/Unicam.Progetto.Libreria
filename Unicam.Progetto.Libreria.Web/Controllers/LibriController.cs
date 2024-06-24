@@ -1,34 +1,33 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Unicam.Progetto.Libreria.Application.Abstractions.Services;
 using Unicam.Progetto.Libreria.Application.Models.Requests;
+using Unicam.Progetto.Libreria.Application.Models.Responses;
+using Unicam.Progetto.Libreria.Application.Services;
 using Unicam.Progetto.Libreria.Models.Entities;
 
 namespace Unicam.Progetto.Libreria.Web.Controllers
 {
-
+    //controller che restituisce le api
     [ApiController]
     [Route("api/v1/[controller]")]
     public class LibriController : ControllerBase
     {
 
-        List<Libro> libri = new List<Libro>();
+        //inietto LibroService tramite il costruttore, iniezione dei servizi e logiche di business
+        private readonly ILibroService _libroService;
 
-        public LibriController()
+        public LibriController(ILibroService libroService)
         {
-            libri.Add(new Libro()
-            {
-                Autore = "Alessandro Baricco",
-                Nome = "Novecento",
-                DataPubblicazione = DateTime.Now,
-                Editore = "Zanichelli"
-            });
+            _libroService = libroService;
         }
-
+        //dopo iniezione servizi necessari
+        //creazione end-point
 
         [HttpGet]
-        [Route("list")]
+        [Route("list")] //route eredita dalla rotta che abbiamo impostato a livello di classe
         public IEnumerable<Libro> GetLibri()
         {
-            return libri;
+            return null;
         }
 
         [HttpGet]
@@ -36,7 +35,7 @@ namespace Unicam.Progetto.Libreria.Web.Controllers
         //id lo prendiamo o dalla url o dal body
         public Libro GetLibro(int id)
         {
-            return libri.Where(w => w.LibroId == id).First();
+            return null ;
         }
 
 
@@ -47,8 +46,14 @@ namespace Unicam.Progetto.Libreria.Web.Controllers
             //createlibrorequest dobbiamo trasformarlo in un oggetto di tipo libro, lo facciamo con un metodo nella classe dto che restituisce un ToEntity()
             var libro = request.ToEntity();
             //dobbiamo restituire, per fare questo abbiamo la necessita di andare a persistere questo determinato oggetto all interno del database.
-            return Ok();
+            //uso le repository che ho implementato
+            _libroService.AddLibro(libro);//Questo andrà mappato in qualche modo da un dto
+            //ora ho il libro
+            var response = new CreateLibroResponse();
+            response.Libro = new Application.Models.Dtos.LibroDto(libro);
+            return Ok(response);
         }
+        //model binding automatico
         //esponendo una web api non dovremmo mai esporre le entità //public IActionResult CreateLibro([FromBody] Libro newLibro)
         //di norma, non si fa mai binding su un oggetto del dominio/modello, ma su una classe intermedia che serve per mappare la richiesta che viene effettuata
 
