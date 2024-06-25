@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Unicam.Progetto.Libreria.Application.Abstractions.Services;
+using Unicam.Progetto.Libreria.Application.Factories;
 using Unicam.Progetto.Libreria.Application.Models.Requests;
 using Unicam.Progetto.Libreria.Application.Models.Responses;
 using Unicam.Progetto.Libreria.Application.Services;
@@ -30,7 +31,10 @@ namespace Unicam.Progetto.Libreria.Web.Controllers
             //STEP 2: Se username/password corrette creo il token con le claims necessarie
 
             //STEP 3: Restituisco il token
-            return Ok(new CreateTokenResponse(token));
+            return Ok(ResponseFactory.WithSucces(
+                    new CreateTokenResponse(token)
+                    )
+                );
         }
     }
 }

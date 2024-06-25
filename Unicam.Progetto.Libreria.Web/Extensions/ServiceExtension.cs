@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using Unicam.Progetto.Libreria.Application.Options;
+using Unicam.Progetto.Libreria.Web.Results;
 
 namespace Unicam.Progetto.Libreria.Web.Extensions
 {
@@ -11,7 +12,15 @@ namespace Unicam.Progetto.Libreria.Web.Extensions
     {
         public static IServiceCollection AddWebServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .ConfigureApiBehaviorOptions(opt => 
+                {
+                    opt.InvalidModelStateResponseFactory = (context) =>
+                    {
+                        return new BadRequestResultFactory(context);
+                    };
+                    
+                });
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo

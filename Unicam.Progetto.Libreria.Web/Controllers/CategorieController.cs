@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Unicam.Progetto.Libreria.Application.Abstractions.Services;
+using Unicam.Progetto.Libreria.Application.Factories;
 using Unicam.Progetto.Libreria.Application.Models.Requests;
 using Unicam.Progetto.Libreria.Application.Models.Responses;
 using Unicam.Progetto.Libreria.Application.Services;
@@ -29,7 +30,8 @@ namespace Unicam.Progetto.Libreria.Web.Controllers
             //ora ho il libro
             var response = new CreateCategoriaResponse();
             response.Categoria = new Application.Models.Dtos.CategoriaDto(categoria);
-            return Ok(response);
+            return Ok(
+                ResponseFactory.WithSucces(response));
         }
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Unicam.Progetto.Libreria.Application.Abstractions.Services;
+using Unicam.Progetto.Libreria.Application.Factories;
 using Unicam.Progetto.Libreria.Application.Models.Requests;
 using Unicam.Progetto.Libreria.Application.Models.Responses;
 using Unicam.Progetto.Libreria.Application.Services;
@@ -54,7 +55,8 @@ namespace Unicam.Progetto.Libreria.Web.Controllers
             //ora ho il libro
             var response = new CreateLibroResponse();
             response.Libro = new Application.Models.Dtos.LibroDto(libro);
-            return Ok(response);
+            return Ok(
+                ResponseFactory.WithSucces(response));
         }
         //model binding automatico
         //esponendo una web api non dovremmo mai esporre le entità //public IActionResult CreateLibro([FromBody] Libro newLibro)
