@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Unicam.Progetto.Libreria.Application.Abstractions.Services;
+using Unicam.Progetto.Libreria.Models.Context;
 using Unicam.Progetto.Libreria.Models.Entities;
 using Unicam.Progetto.Libreria.Models.Repositories;
 
@@ -15,9 +17,11 @@ namespace Unicam.Progetto.Libreria.Application.Services
 
         //dipendecy injection per ottenere repo, strato di persistenza
         private readonly LibroRepository _libroRepository;
-        public LibroService(LibroRepository libroRepository)
+        private readonly MyDbContext _context;
+        public LibroService(LibroRepository libroRepository, MyDbContext context)
         {
             _libroRepository = libroRepository;
+            _context = context;
         }
 
         public List<Libro> GetLibri()
@@ -25,8 +29,19 @@ namespace Unicam.Progetto.Libreria.Application.Services
             return new List<Libro>();
         }
 
-        public void AddLibro (Libro libro) {
-
+        public void AddLibro (Libro libro, List<int> categorieIds) {
+            // Carica le categorie esistenti dal database
+            
+            var categorie = _context.Categorie.Where(c => categorieIds.Contains(c.CategoriaId)).ToList();
+            // Associa le categorie caricate al libro
+            foreach (var categoria in categorie)
+            {
+                libro.CategorieDelLibro.Add(new LibriCategorie
+                {
+                    LibroJoin = libro,
+                    CategoriaJoin = categoria
+                });
+            }
             _libroRepository.Aggiungi(libro);
             _libroRepository.Save();
         }

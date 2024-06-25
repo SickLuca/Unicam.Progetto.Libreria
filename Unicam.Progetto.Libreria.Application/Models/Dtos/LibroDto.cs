@@ -13,18 +13,19 @@ namespace Unicam.Progetto.Libreria.Application.Models.Dtos
         public string Editore { get; set; } = String.Empty;
 
         //questa sarà la nostra proprietà di navigazione che ci permette di passare da un entità all'altra
-        public virtual ICollection<LibriCategorie> CategorieDelLibro { get; set; } = null!;
+        public List<string> Categorie { get; set; } = null!;
+
 
 
         public LibroDto(Libro libro)
         {
-            //mapping
+
             LibroId = libro.LibroId;
             Nome = libro.Nome;
             Autore = libro.Autore;
             DataPubblicazione = libro.DataPubblicazione;
             Editore = libro.Editore;
-            CategorieDelLibro = libro.CategorieDelLibro;
+            Categorie = libro.CategorieDelLibro.Select(lc => lc.CategoriaJoin.NomeCategoria).ToList();
         }
 
         public LibroDto()

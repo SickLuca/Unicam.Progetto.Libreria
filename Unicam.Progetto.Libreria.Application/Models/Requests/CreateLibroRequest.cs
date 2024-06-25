@@ -20,7 +20,7 @@ namespace Unicam.Progetto.Libreria.Application.Models.Requests
 
         public string Editore {  get; set; } = String.Empty;
 
-        public ICollection<LibriCategorie> CategorieDelLibro { get; set; } = new List<LibriCategorie>();
+        public List<int> CategorieIds { get; set; }
 
 
         public Libro ToEntity()
@@ -32,7 +32,7 @@ namespace Unicam.Progetto.Libreria.Application.Models.Requests
             libro.Autore = Autore;
             libro.DataPubblicazione = DataPubblicazione;
             libro.Editore = Editore;
-            libro.CategorieDelLibro = CategorieDelLibro;
+            libro.CategorieDelLibro = new List<LibriCategorie>();
             //librerie come automapper lo fanno in modo automatico
             return libro;
 

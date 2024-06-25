@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Unicam.Progetto.Libreria.Application.Abstractions.Services;
 using Unicam.Progetto.Libreria.Application.Models.Requests;
 using Unicam.Progetto.Libreria.Application.Models.Responses;
@@ -10,6 +12,7 @@ namespace Unicam.Progetto.Libreria.Web.Controllers
     //controller che restituisce le api
     [ApiController]
     [Route("api/v1/[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class LibriController : ControllerBase
     {
 
@@ -47,7 +50,7 @@ namespace Unicam.Progetto.Libreria.Web.Controllers
             var libro = request.ToEntity();
             //dobbiamo restituire, per fare questo abbiamo la necessita di andare a persistere questo determinato oggetto all interno del database.
             //uso le repository che ho implementato
-            _libroService.AddLibro(libro);//Questo andrà mappato in qualche modo da un dto
+            _libroService.AddLibro(libro, request.CategorieIds);//Questo andrà mappato in qualche modo da un dto
             //ora ho il libro
             var response = new CreateLibroResponse();
             response.Libro = new Application.Models.Dtos.LibroDto(libro);
