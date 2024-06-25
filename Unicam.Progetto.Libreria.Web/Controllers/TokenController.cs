@@ -31,7 +31,7 @@ namespace Unicam.Progetto.Libreria.Web.Controllers
             //STEP 2: Se username/password corrette creo il token con le claims necessarie
 
             //STEP 3: Restituisco il token
-            return Ok(ResponseFactory.WithSucces(
+            return Ok(ResponseFactory.WithSuccess(
                     new CreateTokenResponse(token)
                     )
                 );

@@ -17,7 +17,7 @@ namespace Unicam.Progetto.Libreria.Models.Repositories
         }
 
         //TODO: Controllare obbligatorietà di almeno uno dei campi
-        public List<Libro> GetLibri(int from, int num, string? name, string? author, DateTime? publicationDate, string? categoryName, out int totalNum)
+        public List<Libro> GetLibri(int from, int num, string? name, string? author, DateTime? publicationDate, string? editor, string? categoryName, out int totalNum)
         {
             // Iniziare con la query base
             var query = _ctx.Libri.AsQueryable();
@@ -36,6 +36,11 @@ namespace Unicam.Progetto.Libreria.Models.Repositories
             if (publicationDate.HasValue)
             {
                 query = query.Where(w => w.DataPubblicazione == publicationDate.Value);
+            }
+
+            if (!string.IsNullOrEmpty(editor))
+            {
+                query = query.Where(w => w.Autore.ToLower().Contains(editor.ToLower()));
             }
 
             if (!string.IsNullOrEmpty(categoryName))

@@ -24,10 +24,7 @@ namespace Unicam.Progetto.Libreria.Application.Services
             _context = context;
         }
 
-        public List<Libro> GetLibri()
-        {
-            return new List<Libro>();
-        }
+      
 
         public void AddLibro (Libro libro, List<int> categorieIds) {
             // Carica le categorie esistenti dal database
@@ -46,5 +43,14 @@ namespace Unicam.Progetto.Libreria.Application.Services
             _libroRepository.Save();
         }
 
+        public List<Libro> GetLibri(int from, int num, string? name, string? author, DateTime? publicationDate, string? editor, string? categoryName, out int totalNum)
+        {
+            return _libroRepository.GetLibri(from, num, name, author, publicationDate, editor, categoryName, out totalNum);
+        }
+
+        public List<Libro> GetLibri()
+        {
+            return new List<Libro>();
+        }
     }
 }

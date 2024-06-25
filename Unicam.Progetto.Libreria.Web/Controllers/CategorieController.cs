@@ -31,7 +31,7 @@ namespace Unicam.Progetto.Libreria.Web.Controllers
             var response = new CreateCategoriaResponse();
             response.Categoria = new Application.Models.Dtos.CategoriaDto(categoria);
             return Ok(
-                ResponseFactory.WithSucces(response));
+                ResponseFactory.WithSuccess(response));
         }
     }
 }

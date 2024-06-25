@@ -4,7 +4,7 @@ namespace Unicam.Progetto.Libreria.Application.Factories
 {
     public class ResponseFactory
     {
-        public static BaseResponse<T> WithSucces<T>(T result)
+        public static BaseResponse<T> WithSuccess<T>(T result)
         {
             var response = new BaseResponse<T>();
             response.Success = true;

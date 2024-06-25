@@ -27,11 +27,26 @@ namespace Unicam.Progetto.Libreria.Web.Controllers
         //dopo iniezione servizi necessari
         //creazione end-point
 
-        [HttpGet]
-        [Route("list")] //route eredita dalla rotta che abbiamo impostato a livello di classe
-        public IEnumerable<Libro> GetLibri()
+        [HttpPost]
+        [Route("list")] //route eredita prima la rotta impostata nella classe, poi fa /list
+        public IActionResult GetLibri(GetLibroRequest request)
         {
-            return null;
+            // TODO : Validazione della richiesta (es pag > 0, pagnumb > 0)
+            int totalNum = 0;
+            var libri = _libroService.GetLibri(request.PageNumber * request.PageSize, request.PageSize, request.Name, request.Author, request.PublicationDate, request.Editor, request.CategoryName, out totalNum);
+
+            var response = new GetLibriResponse();
+            //vedo quante sono le pagine
+            var pageFounded = (totalNum / (decimal)request.PageSize);
+            //Ceiling, dato un decimale ci restituisce l'intero piu grande
+            response.NumeroPagine = (int)Math.Ceiling(pageFounded);
+            response.Libri = libri.Select(s =>
+            new Application.Models.Dtos.LibroDto(s)).ToList();
+
+
+            return Ok(ResponseFactory
+              .WithSuccess(response)
+              );
         }
 
         [HttpGet]
@@ -56,7 +71,7 @@ namespace Unicam.Progetto.Libreria.Web.Controllers
             var response = new CreateLibroResponse();
             response.Libro = new Application.Models.Dtos.LibroDto(libro);
             return Ok(
-                ResponseFactory.WithSucces(response));
+                ResponseFactory.WithSuccess(response));
         }
         //model binding automatico
         //esponendo una web api non dovremmo mai esporre le entità //public IActionResult CreateLibro([FromBody] Libro newLibro)
