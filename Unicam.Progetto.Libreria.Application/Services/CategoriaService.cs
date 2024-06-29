@@ -25,5 +25,17 @@ namespace Unicam.Progetto.Libreria.Application.Services
             _categoriaRepository.Save();
             return true;
         }
+
+        public bool RemoveCategoria(string nome)
+        {
+            Categoria categoria = _categoriaRepository.GetByNome(nome);
+            if (categoria != null && !categoria.LibriDellaCategoria.Any())          //controlla che non ci siano libri associati alla categoria e che la categoria esista
+            {
+                _categoriaRepository.Elimina(categoria.CategoriaId);
+                _categoriaRepository.Save();
+                return true;
+            }
+            return false;
+        }
     }
 }

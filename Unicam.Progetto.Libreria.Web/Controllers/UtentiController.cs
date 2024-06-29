@@ -36,7 +36,7 @@ namespace Unicam.Progetto.Libreria.Web.Controllers
 
         [HttpPost]
         [Route("login")]
-        public IActionResult Login([FromBody] CreateLoginRequest request)
+        public IActionResult Login(CreateLoginRequest request)
         {
             var token = _utenteService.Login(request.Email, request.Password);
             if (token != null)

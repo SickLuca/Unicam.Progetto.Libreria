@@ -6,6 +6,7 @@ using Unicam.Progetto.Libreria.Application.Factories;
 using Unicam.Progetto.Libreria.Application.Models.Requests;
 using Unicam.Progetto.Libreria.Application.Models.Responses;
 using Unicam.Progetto.Libreria.Application.Services;
+using Unicam.Progetto.Libreria.Entities;
 
 namespace Unicam.Progetto.Libreria.Web.Controllers
 {
@@ -35,12 +36,24 @@ namespace Unicam.Progetto.Libreria.Web.Controllers
                 return Ok(
                     ResponseFactory.WithSuccess(response));
             }
+            else return Ok(
+                    ResponseFactory.WithError("Questa categoria esiste già."));
+            
+        }
+
+
+
+        [HttpDelete]
+        [Route("remove")]
+        public IActionResult RemoveCategoria(CreateDeleteCategoriaRequest deleteCategoriaRequest)
+        {
+            if (_categoriaService.RemoveCategoria(deleteCategoriaRequest.Nome))
+            {
+                return Ok();
+            }
             else
             {
-                var response = new CreateCategoriaResponse();
-                response.Categoria = new Application.Models.Dtos.CategoriaDto(categoria);
-                return Ok(
-                    ResponseFactory.WithError("Questa categoria esiste già."));
+                return BadRequest();
             }
         }
     }

@@ -4,8 +4,7 @@ using Unicam.Progetto.Libreria.Models.Entities;
 namespace Unicam.Progetto.Libreria.Application.Models.Dtos
 {
     public class CategoriaDto
-    {
-        public int CategoriaId { get; set; }
+    { 
         public string NomeCategoria { get; set; } = string.Empty;
 
 

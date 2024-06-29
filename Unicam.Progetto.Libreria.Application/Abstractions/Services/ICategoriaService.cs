@@ -6,5 +6,7 @@ namespace Unicam.Progetto.Libreria.Application.Abstractions.Services
     public interface ICategoriaService
     {
         bool AddCategoria(Categoria categoria);
+
+        public bool RemoveCategoria(string nome);
     }
 }

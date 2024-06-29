@@ -60,7 +60,7 @@ namespace Unicam.Progetto.Libreria.Application.Services
                 _jwtAuthOption.Issuer,
                 null,
                 claims,
-                expires: DateTime.Now.AddDays(90),
+                expires: DateTime.Now.AddDays(30),
                 signingCredentials: creds
                 );
             return new JwtSecurityTokenHandler().WriteToken(securtyyoken);
