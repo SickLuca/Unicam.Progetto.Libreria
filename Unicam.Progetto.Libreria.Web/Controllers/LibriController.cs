@@ -79,9 +79,23 @@ namespace Unicam.Progetto.Libreria.Web.Controllers
 
         //queste classi si chiamano dto, data transfer oject, che servono per trasferire un oggetto da una posizone a ad una b
         //Creiamo quanti dto vogliamo e specifichiamo al loro interno i parametri, e una volta validato il dto abbiamo opportunità di trasformare quest oggetto in un oggetto tale per cui possiamo effettuare le operazioni all interno del nostro dominio
-        
+
         //creiamo uno strato che sara il modello delle nostre web api, quello strato che esponiamo all utente, strato che poi viene mappato al modello che effettivamente abbiamo noi all'interno della nostra app
         //ESEMPIO, mi serve un dto che gestisca la richiesta della creazione di un nuovo libro
-        
+
+        [HttpDelete]
+        [Route("remove")]
+        public IActionResult RemoveLibro(CreateDeleteLibroRequest deleteLibroRequest)
+        {
+            if (_libroService.RemoveLibro(deleteLibroRequest.Id))
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
     }
 }

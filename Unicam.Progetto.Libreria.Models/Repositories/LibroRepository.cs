@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,11 @@ namespace Unicam.Progetto.Libreria.Models.Repositories
         public LibroRepository(MyDbContext context) : base(context)
         {
 
+        }
+
+        public Libro GetLibro(object id)
+        {
+            return _ctx.Set<Libro>().Include(c => c.CategorieDelLibro).Where(x => x.LibroId == (int)id).FirstOrDefault();
         }
 
         //TODO: Controllare obbligatorietà di almeno uno dei campi

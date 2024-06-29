@@ -29,8 +29,11 @@ namespace Unicam.Progetto.Libreria.Models.Repositories
                 .Find(id);
 
         }
-        
 
+        public void Delete(T entity)
+        {
+            _ctx.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+        }
         public void Elimina(object id)
         {
             var entity = Ottieni(id);

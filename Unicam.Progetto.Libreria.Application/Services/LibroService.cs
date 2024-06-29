@@ -52,5 +52,16 @@ namespace Unicam.Progetto.Libreria.Application.Services
         {
             return new List<Libro>();
         }
+
+        public bool RemoveLibro(int id)
+        {
+            if (_libroRepository.GetLibro(id) != null)
+            {
+                _libroRepository.Delete(_libroRepository.GetLibro(id));
+                _libroRepository.Save();
+                return true;
+            }
+            return false;
+        }
     }
 }
