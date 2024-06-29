@@ -15,7 +15,8 @@ namespace Unicam.Progetto.Libreria.Application.Extensions
 
             services.AddScoped<ILibroService, LibroService>();
             services.AddScoped<ICategoriaService, CategoriaService>();
-            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUtenteService, UtenteService>();
+            
             return services;
         }
     }

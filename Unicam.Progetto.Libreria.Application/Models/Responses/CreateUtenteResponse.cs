@@ -2,10 +2,9 @@
 
 namespace Unicam.Progetto.Libreria.Application.Models.Responses
 {
-    public class CreateLibroResponse
-    { 
-
-        public LibroDto Libro { get; set; } = null!;
+    public class CreateUtenteResponse
+    {
+        public UtenteDto Utente { get; set; } = null!;
 
     }
 }

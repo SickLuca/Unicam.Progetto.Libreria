@@ -13,5 +13,14 @@ namespace Unicam.Progetto.Libreria.Models.Repositories
         public UtenteRepository(MyDbContext ctx) : base(ctx)
         {
         }
+
+        public Utente GetByEmail(string email)
+        {
+            return _ctx.Set<Utente>().Where(x => x.Email.Equals(email)).FirstOrDefault();
+        }
+        public bool checkMailPassword(string email, string password)
+        {
+            return _ctx.Set<Utente>().Where(x => x.Email.Equals(email) && x.Password.Equals(password)).Any();
+        }
     }
 }

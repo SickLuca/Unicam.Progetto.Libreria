@@ -8,7 +8,6 @@ namespace Unicam.Progetto.Libreria.Application.Models.Dtos
         public int CategoriaId { get; set; }
         public string NomeCategoria { get; set; } = string.Empty;
 
-        public List<string> LibriDellaCategoria { get; set; } = null!;
 
         public CategoriaDto(Categoria categoria)
         {

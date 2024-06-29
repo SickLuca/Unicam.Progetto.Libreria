@@ -5,7 +5,6 @@ namespace Unicam.Progetto.Libreria.Application.Models.Requests
 {
     public class CreateCategoriaRequest
     {
-        public int CategoriaId { get; set; }
         public string NomeCategoria { get; set; }
 
         public Categoria toEntity()

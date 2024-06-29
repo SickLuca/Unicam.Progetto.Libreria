@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Unicam.Progetto.Libreria.Application.Abstractions.Services;
 using Unicam.Progetto.Libreria.Application.Factories;
 using Unicam.Progetto.Libreria.Application.Models.Requests;
@@ -9,6 +11,7 @@ namespace Unicam.Progetto.Libreria.Web.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class CategorieController : ControllerBase
     {
         private readonly ICategoriaService _categoriaService;
@@ -22,16 +25,24 @@ namespace Unicam.Progetto.Libreria.Web.Controllers
         [Route("new")]
         public IActionResult CreateCategoria(CreateCategoriaRequest request)
         {
-            //createlibrorequest dobbiamo trasformarlo in un oggetto di tipo libro, lo facciamo con un metodo nella classe dto che restituisce un ToEntity()
             var categoria = request.toEntity();
-            //dobbiamo restituire, per fare questo abbiamo la necessita di andare a persistere questo determinato oggetto all interno del database.
-            //uso le repository che ho implementato
-            _categoriaService.AddCategoria(categoria);//Questo andrà mappato in qualche modo da un dto
-            //ora ho il libro
-            var response = new CreateCategoriaResponse();
-            response.Categoria = new Application.Models.Dtos.CategoriaDto(categoria);
-            return Ok(
-                ResponseFactory.WithSuccess(response));
+           
+
+            if (_categoriaService.AddCategoria(categoria))
+            {
+                var response = new CreateCategoriaResponse();
+                response.Categoria = new Application.Models.Dtos.CategoriaDto(categoria);
+                return Ok(
+                    ResponseFactory.WithSuccess(response));
+            }
+            else
+            {
+                var response = new CreateCategoriaResponse();
+                response.Categoria = new Application.Models.Dtos.CategoriaDto(categoria);
+                return Ok(
+                    ResponseFactory.WithError("Questa categoria esiste già."));
+            }
         }
     }
 }
+

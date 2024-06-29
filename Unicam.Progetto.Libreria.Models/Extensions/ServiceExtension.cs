@@ -24,6 +24,7 @@ namespace Unicam.Progetto.Libreria.Models.Extensions
 
             services.AddScoped<LibroRepository>();
             services.AddScoped<CategoriaRepository>();
+            services.AddScoped<UtenteRepository>();
 
             return services;
         }

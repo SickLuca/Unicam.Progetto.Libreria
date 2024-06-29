@@ -9,17 +9,21 @@ namespace Unicam.Progetto.Libreria.Application.Services
     public class CategoriaService : ICategoriaService
     {
         private readonly CategoriaRepository _categoriaRepository;
-        private readonly MyDbContext _context;
         public CategoriaService(CategoriaRepository categoriaRepository)
         {
             _categoriaRepository = categoriaRepository;
         }
 
 
-        public void AddCategoria(Categoria categoria)
+        public bool AddCategoria(Categoria categoria)
         {
+            if (_categoriaRepository.GetByNome(categoria.NomeCategoria) != null)
+            {
+                return false;
+            }
             _categoriaRepository.Aggiungi(categoria);
             _categoriaRepository.Save();
+            return true;
         }
     }
 }
