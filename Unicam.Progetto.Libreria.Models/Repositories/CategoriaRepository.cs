@@ -21,5 +21,11 @@ namespace Unicam.Progetto.Libreria.Models.Repositories
         {
             return _ctx.Set<Categoria>().Include(c => c.LibriDellaCategoria).Where(x => x.NomeCategoria.Equals(nome)).FirstOrDefault();
         }
+
+        public List<Categoria> GetCategorieByIds(List<int> categorieIds)
+        {
+            return _ctx.Categorie.Where(c => categorieIds.Contains(c.CategoriaId)).ToList();
+        }
+
     }
 }

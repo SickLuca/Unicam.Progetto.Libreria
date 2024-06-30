@@ -67,10 +67,7 @@ namespace Unicam.Progetto.Libreria.Models.Repositories
                 .ToList();
         }
 
-        public void Modifica(Libro libro)
-        {
-            _ctx.Entry(libro).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-        }
+
 
     }
 }

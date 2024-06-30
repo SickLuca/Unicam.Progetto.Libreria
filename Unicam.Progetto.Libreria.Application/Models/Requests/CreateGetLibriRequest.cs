@@ -1,6 +1,6 @@
 ﻿namespace Unicam.Progetto.Libreria.Application.Models.Requests
 {
-    public class GetLibroRequest
+    public class CreateGetLibriRequest
     {
         public int PageSize { get; set; } //Rappresenta la grandezza della pagina
         public int PageNumber { get; set; } //Identifica il numero della pagina ad indice 0

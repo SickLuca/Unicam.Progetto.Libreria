@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Unicam.Progetto.Libreria.Application.Abstractions.Services;
+using Unicam.Progetto.Libreria.Entities;
 using Unicam.Progetto.Libreria.Models.Context;
 using Unicam.Progetto.Libreria.Models.Entities;
 using Unicam.Progetto.Libreria.Models.Repositories;
@@ -17,11 +18,13 @@ namespace Unicam.Progetto.Libreria.Application.Services
 
         //dipendecy injection per ottenere repo, strato di persistenza
         private readonly LibroRepository _libroRepository;
+        private readonly CategoriaRepository _categoriaRepository;
         private readonly MyDbContext _context;
-        public LibroService(LibroRepository libroRepository, MyDbContext context)
+        public LibroService(LibroRepository libroRepository, MyDbContext context, CategoriaRepository categoriaRepository)
         {
             _libroRepository = libroRepository;
             _context = context;
+            _categoriaRepository = categoriaRepository;
         }
 
       
@@ -48,11 +51,6 @@ namespace Unicam.Progetto.Libreria.Application.Services
             return _libroRepository.GetLibri(from, num, name, author, publicationDate, editor, categoryName, out totalNum);
         }
 
-        public List<Libro> GetLibri()
-        {
-            return new List<Libro>();
-        }
-
         public bool RemoveLibro(int id)
         {
             if (_libroRepository.GetLibro(id) != null)
@@ -63,5 +61,65 @@ namespace Unicam.Progetto.Libreria.Application.Services
             }
             return false;
         }
+
+
+
+        /*
+        public bool UpdateLibro(int id, string nome, string autore, string editore, DateTime data, List<int> categorie)
+        {
+            List<int> categorieSet = new List<int>();
+            categorieSet = GetCategorie(categorie);
+            if (_libroRepository.GetLibro(id) != null)
+            {
+                Libro libro = _libroRepository.GetLibro(id);
+                libro.Nome = nome;
+                libro.Autore = autore;
+                libro.Editore = editore;
+                libro.DataPubblicazione = data;
+                libro.CategorieDelLibro =  categorieSet;
+                _libroRepository.Update(libro);
+                _libroRepository.Save();
+                return true;
+            }
+            return false;
+        }
+        */
+
+
+
+        public bool UpdateLibro(int id, string nome, string autore, string editore, DateTime data, List<int> categorie)
+        {
+            // Recupera il libro esistente
+            var libro = _libroRepository.GetLibro(id);
+            if (libro == null)
+            {
+                return false;
+            }
+
+            // Aggiorna le proprietà del libro
+            libro.Nome = nome;
+            libro.Autore = autore;
+            libro.Editore = editore;
+            libro.DataPubblicazione = data;
+
+            // Recupera le categorie dal database in base agli ID forniti
+            var categorieEntities = _categoriaRepository.GetCategorieByIds(categorie);
+
+            // Cancella le categorie attuali del libro
+            libro.CategorieDelLibro.Clear();
+
+            // Aggiungi le nuove categorie
+            foreach (var categoria in categorieEntities)
+            {
+                libro.CategorieDelLibro.Add(new LibriCategorie { LibroId = libro.LibroId, CategoriaId = categoria.CategoriaId });
+            }
+
+            // Aggiorna il libro nel repository
+            _libroRepository.Update(libro);
+            _libroRepository.Save();
+
+            return true;
+        }
+
     }
 }

@@ -40,6 +40,11 @@ namespace Unicam.Progetto.Libreria.Models.Repositories
             _ctx.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
         }
 
+        public void Update(T entity)
+        {
+            _ctx.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+        }
+
         public void Save()
         {
             _ctx.SaveChanges();

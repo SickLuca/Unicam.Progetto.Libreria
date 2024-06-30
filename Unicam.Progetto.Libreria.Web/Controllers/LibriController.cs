@@ -29,7 +29,7 @@ namespace Unicam.Progetto.Libreria.Web.Controllers
 
         [HttpPost]
         [Route("list")] //route eredita prima la rotta impostata nella classe, poi fa /list
-        public IActionResult GetLibri(GetLibroRequest request)
+        public IActionResult GetLibri(CreateGetLibriRequest request)
         {
             // TODO : Validazione della richiesta (es pag > 0, pagnumb > 0)
             int totalNum = 0;
@@ -88,6 +88,22 @@ namespace Unicam.Progetto.Libreria.Web.Controllers
         public IActionResult RemoveLibro(CreateDeleteLibroRequest deleteLibroRequest)
         {
             if (_libroService.RemoveLibro(deleteLibroRequest.Id))
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+
+
+        [HttpPut]
+        [Route("update")]
+        public IActionResult UpdateLibro(CreateUpdateLibroRequest updateLibroRequest)
+        {
+            if (_libroService.UpdateLibro(updateLibroRequest.Id, updateLibroRequest.Nome, updateLibroRequest.Autore, updateLibroRequest.Editore, updateLibroRequest.DataPubblicazione, updateLibroRequest.CategorieIds))
             {
                 return Ok();
             }
