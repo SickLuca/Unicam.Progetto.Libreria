@@ -2,6 +2,10 @@
 
 namespace Unicam.Progetto.Libreria.Application.Models.Dtos
 {
+
+    /// <summary>
+    /// Data Transfer Object (DTO) per la classe Libro.
+    /// </summary>
     public class LibroDto
     {
         public int LibroId { get; set; }
@@ -12,7 +16,6 @@ namespace Unicam.Progetto.Libreria.Application.Models.Dtos
 
         public string Editore { get; set; } = String.Empty;
 
-        //questa sarà la nostra proprietà di navigazione che ci permette di passare da un entità all'altra
         public List<string> Categorie { get; set; } = null!;
 
 

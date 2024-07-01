@@ -3,6 +3,10 @@ using Unicam.Progetto.Libreria.Application.Models.Requests;
 
 namespace Unicam.Progetto.Libreria.Application.Models.Validators
 {
+
+    /// <summary>
+    /// Validator per la richiesta di cancellazione di un libro.
+    /// </summary>
     public class CreateDeleteLibroRequestValidator : AbstractValidator<CreateDeleteLibroRequest>
     {
         public CreateDeleteLibroRequestValidator()

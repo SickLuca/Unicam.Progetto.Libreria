@@ -7,9 +7,9 @@ using Unicam.Progetto.Libreria.Models.Entities;
 
 namespace Unicam.Progetto.Libreria.Application.Models.Requests
 {
-    //fluent valuation per validare questi campi nel momento dell inserimento 
-    //qui ci metteremo dentro tutti i parametri che serviranno per la creazione della richiesta CreateLibro, ci mappa la richiesta della creazione
-    //Questa richiesta ora può essere passata in ingresso all'interno del metodo httppost createLibro che troviamo nel controller
+    /// <summary>
+    /// Richiesta per la creazione di una nuovo libro.
+    /// </summary>
     public class CreateLibroRequest
     {
         public string Nome { get; set; } = String.Empty;    
@@ -23,9 +23,13 @@ namespace Unicam.Progetto.Libreria.Application.Models.Requests
         public List<int> CategorieIds { get; set; }
 
 
+        /// <summary>
+        /// Converte l'istanza di <see cref="CreateLibroRequest"/> in un'istanza di <see cref="Libro"/>.
+        /// </summary>
+        /// <returns>Un'istanza di <see cref="Libro"/> con i dati della richiesta.</returns>
         public Libro ToEntity()
         {
-            //trasformiamo in libro usando il mapping
+            //mapping
 
             Libro libro = new Libro();
             libro.Nome = Nome;
@@ -33,7 +37,7 @@ namespace Unicam.Progetto.Libreria.Application.Models.Requests
             libro.DataPubblicazione = DataPubblicazione;
             libro.Editore = Editore;
             libro.CategorieDelLibro = new List<LibriCategorie>();
-            //librerie come automapper lo fanno in modo automatico
+         
             return libro;
 
         }

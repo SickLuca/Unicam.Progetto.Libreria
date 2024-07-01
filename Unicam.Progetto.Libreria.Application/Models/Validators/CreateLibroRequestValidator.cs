@@ -2,26 +2,34 @@
 using Unicam.Progetto.Libreria.Application.Models.Requests;
 namespace Unicam.Progetto.Libreria.Application.Models.Validators
 {
-    //utilizzato e invocato ogni volta che viene effettuato un binding su createLibroRequest
+    /// <summary>
+    /// Validator per la creazione di un nuovo libro.
+    /// </summary>
     public class CreateLibroRequestValidator : AbstractValidator<CreateLibroRequest> 
     {
         public CreateLibroRequestValidator() 
         {
-            RuleFor(m => m.Nome)
-                .NotNull()
+            RuleFor(x => x.Editore)
                 .NotEmpty()
-                .WithMessage("Il campo nome è obbligatorio");
-            //vediamo una custom
-            RuleFor(m => m.Autore)
-                .Custom(ValidaAutore);
+                .WithMessage("Il campo titolo è obbligatorio")
+                .NotNull()
+                .WithMessage("Il campo titolo non può essere nullo");
+            RuleFor(x => x.Nome)
+               .NotEmpty()
+               .WithMessage("Il campo nome è obbligatorio")
+               .NotNull()
+               .WithMessage("Il campo nome non può essere nullo");
+            RuleFor(x => x.Autore)
+               .NotEmpty()
+               .WithMessage("Il campo autore è obbligatorio")
+               .NotNull()
+               .WithMessage("Il campo autore non può essere nullo");
+            RuleFor(x => x.DataPubblicazione)
+               .NotEmpty()
+               .WithMessage("Il campo data è obbligatorio")
+               .NotNull()
+               .WithMessage("Il campo data non può essere nullo");
         }
 
-        private void ValidaAutore(string value, ValidationContext<CreateLibroRequest> context)
-        {
-            if (value == null)
-            {
-                context.AddFailure("Il campo Autore è obbligatorio");
-            }
-        }
     }
 }

@@ -4,6 +4,10 @@ using Unicam.Progetto.Libreria.Models.Entities;
 
 namespace Unicam.Progetto.Libreria.Application.Models.Dtos
 {
+
+    /// <summary>
+    /// Data Transfer Object (DTO) per la classe Utente.
+    /// </summary>
     public class UtenteDto
     {
 

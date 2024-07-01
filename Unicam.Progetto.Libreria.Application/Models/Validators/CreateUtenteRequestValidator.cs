@@ -6,6 +6,10 @@ namespace Unicam.Progetto.Libreria.Application.Models.Validators
 {
     public class CreateUtenteRequestValidator : AbstractValidator<CreateUtenteRequest>
     {
+
+        /// <summary>
+        /// Validator per la richiesta di creazione di un nuovo utente.
+        /// </summary>
         public CreateUtenteRequestValidator()
         {
             RuleFor(m => m.Nome)

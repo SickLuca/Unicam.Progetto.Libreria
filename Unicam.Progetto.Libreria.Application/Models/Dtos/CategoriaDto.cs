@@ -3,6 +3,9 @@ using Unicam.Progetto.Libreria.Models.Entities;
 
 namespace Unicam.Progetto.Libreria.Application.Models.Dtos
 {
+    /// <summary>
+    /// Data Transfer Object (DTO) per la classe Categoria.
+    /// </summary>
     public class CategoriaDto
     { 
         public string NomeCategoria { get; set; } = string.Empty;

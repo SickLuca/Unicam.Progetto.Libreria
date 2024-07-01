@@ -1,5 +1,8 @@
 ﻿namespace Unicam.Progetto.Libreria.Application.Models.Requests
 {
+    /// <summary>
+    /// Richiesta per la restituzione di una lista di libri.
+    /// </summary>
     public class CreateGetLibriRequest
     {
         public int PageSize { get; set; } //Rappresenta la grandezza della pagina
