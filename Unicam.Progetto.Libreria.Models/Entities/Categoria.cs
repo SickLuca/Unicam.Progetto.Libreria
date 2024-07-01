@@ -7,6 +7,9 @@ using Unicam.Progetto.Libreria.Models.Entities;
 
 namespace Unicam.Progetto.Libreria.Entities
 {
+    /// <summary>
+    /// Rappresenta una categoria di libri nel sistema.
+    /// </summary>
     public class Categoria
 
     {

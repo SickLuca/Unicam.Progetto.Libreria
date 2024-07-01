@@ -10,6 +10,9 @@ using Unicam.Progetto.Libreria.Models.Entities;
 
 namespace Unicam.Progetto.Libreria.Models.Configurations
 {
+    /// <summary>
+    /// Configurazione della mappatura dell'entità Utente utilizzando Entity Framework Core.
+    /// </summary>
     public class UtenteConfiguration : IEntityTypeConfiguration<Utente>
     {
 

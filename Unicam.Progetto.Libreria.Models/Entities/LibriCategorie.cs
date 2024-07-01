@@ -7,6 +7,9 @@ using Unicam.Progetto.Libreria.Entities;
 
 namespace Unicam.Progetto.Libreria.Models.Entities
 {
+    /// <summary>
+    /// Rappresenta delle relazioni tra libri e categorie nel sistema.
+    /// </summary>
     public class LibriCategorie
     {
         public int LibroId { get; set; }

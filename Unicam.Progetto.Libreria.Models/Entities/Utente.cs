@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Unicam.Progetto.Libreria.Entities
 {
+    /// <summary>
+    /// Rappresenta un utente nel sistema.
+    /// </summary>
     public class Utente
     {
 

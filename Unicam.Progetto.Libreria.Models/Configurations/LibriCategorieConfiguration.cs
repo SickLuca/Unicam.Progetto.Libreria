@@ -9,6 +9,10 @@ using Unicam.Progetto.Libreria.Models.Entities;
 
 namespace Unicam.Progetto.Libreria.Models.Configurations
 {
+
+    /// <summary>
+    /// Configurazione della mappatura dell'entità LibriCategorie utilizzando Entity Framework Core.
+    /// </summary>
     public class LibriCategorieConfiguration : IEntityTypeConfiguration<LibriCategorie>
     {
         public void Configure(EntityTypeBuilder<LibriCategorie> builder)

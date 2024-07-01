@@ -12,8 +12,12 @@ using Unicam.Progetto.Libreria.Models.Entities;
 
 namespace Unicam.Progetto.Libreria.Models.Configurations
 {
+    /// <summary>
+    /// Configurazione della mappatura dell'entità Libro utilizzando Entity Framework Core.
+    /// </summary>
     public class LibroConfiguration : IEntityTypeConfiguration<Libro>
     {
+
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Libro> builder)
         {
             builder.ToTable("Libro");
@@ -32,8 +36,6 @@ namespace Unicam.Progetto.Libreria.Models.Configurations
         }
     }
 }
-
-
 
 /*
  Implementando l'interfaccia IEntity.. sto dicendo che devo implementare un metodo configure attraverso il quale configuriamo il mapping

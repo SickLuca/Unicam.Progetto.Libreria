@@ -7,9 +7,12 @@ using Unicam.Progetto.Libreria.Entities;
 
 namespace Unicam.Progetto.Libreria.Models.Entities
 {
+
+    /// <summary>
+    /// Rappresenta un libro nel sistema.
+    /// </summary>
     public class Libro
     {
-        //per mettere campo obbligatorio aggiungere ?
         public int LibroId { get; set; }
         public string Nome { get; set; } = String.Empty;
         public string Autore { get; set; } = String.Empty;  
@@ -18,7 +21,7 @@ namespace Unicam.Progetto.Libreria.Models.Entities
 
         public string Editore { get; set; } = String.Empty;
 
-        //questa sarà la nostra proprietà di navigazione che ci permette di passare da un entità all'altra
+        //prop di navigazione
         public virtual ICollection<LibriCategorie> CategorieDelLibro { get; set; } = null!; //stiamo forzando che all'interno di questa assegnazione posso mettere il nullo
     } 
 }

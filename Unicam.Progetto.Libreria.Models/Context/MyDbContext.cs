@@ -10,48 +10,77 @@ using Unicam.Progetto.Libreria.Models.Entities;
 
 namespace Unicam.Progetto.Libreria.Models.Context
 {
+
+    /// <summary>
+    /// Classe di contesto per Entity Framework Core che gestisce l'accesso al database.
+    /// </summary>
     public class MyDbContext : DbContext
     {
+
+        /// <summary>
+        /// Costruttore predefinito.
+        /// </summary>
         public MyDbContext()
         { 
         }
-        
-        //costruttore con quest'ingresso per configurare come servizio entity framework
+
+        /// <summary>
+        /// Costruttore che accetta le opzioni di configurazione del contesto.
+        /// </summary>
+        /// <param name="config">Le opzioni di configurazione del contesto.</param>
         public MyDbContext(DbContextOptions<MyDbContext> config)
         {
 
         }
 
-
+        /// <summary>
+        /// Set di entità che rappresentano i libri nel database.
+        /// </summary>
         public DbSet<Libro> Libri {  get; set; }
 
+
+        /// <summary>
+        /// Set di entità che rappresentano gli utenti nel database.
+        /// </summary>
         public DbSet<Utente> Utenti { get; set; }
 
+
+        /// <summary>
+        /// Set di entità che rappresentano le categorie nel database.
+        /// </summary>
         public DbSet<Categoria> Categorie { get; set; }
 
+
+        /// <summary>
+        /// Set di entità che rappresentano le relazioni tra libri e categorie nel database.
+        /// </summary>
         public DbSet<LibriCategorie> Relazioni { get; set; }
 
-        /*Cosi facendo ho detto ad EF che voglio gestire queste entità per fare il mapping automatico */
 
-        //deve sapere quale configurazioni deve leggere, lo facciamo overrideando il metodo onmodelcreating
-
+        /// <summary>
+        /// Configura il modello durante la creazione del contesto.
+        /// </summary>
+        /// <param name="modelBuilder">Il costruttore del modello.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //e l'assembly lo prendo dall'assembly in cui si trova il contesto. Lui va nell'assembly Unicam.Progetto.Libreria.Models, vede quello
-            //che implementa l'interfaccia IEntityTypeConfiguration e lo applica, ce le carica per noi
+            // Applica tutte le configurazioni definite nell'assembly corrente
             modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
+
+            // Chiama il metodo base per eseguire eventuali ulteriori configurazioni
             base.OnModelCreating(modelBuilder);
         }
 
-        //ora manca il db provider, di cui dobbiamo far avvalere il contesto, altrimenti non saprebbe la modalita con la quale accede al db, noi vogliamo usare
-        //sql server quindi aggiungiamo pacchetto nugat microsoft efcore sql
-        //fatto questo comunque devo specificare a lui che voglio usare sql server, vedi efexample
 
-        //cosi gli dico che ogni volta che viene creato un contesto, utilizziampo sql server
+        /// <summary>
+        /// Configura le opzioni del contesto, inclusa la connessione al database e l'utilizzo dei proxy per il caricamento lazy.
+        /// </summary>
+        /// <param name="optionsBuilder">Il costruttore delle opzioni del contesto.</param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
+                // Abilita l'utilizzo dei proxy per il caricamento lazy
                 .UseLazyLoadingProxies()
+                // Configura l'uso di SQL Server con una stringa di connessione specificata
                 .UseSqlServer("data source=(LocalDb)\\MSSQLLocalDB;Initial catalog=Libreria;User Id=progetto;Password=progetto");
         }
     }

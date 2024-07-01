@@ -9,6 +9,9 @@ using Unicam.Progetto.Libreria.Entities;
 
 namespace Unicam.Progetto.Libreria.Models.Configurations
 {
+    /// <summary>
+    /// Configurazione della mappatura dell'entità Categoria utilizzando Entity Framework Core.
+    /// </summary>
     public class CategoriaConfiguration : IEntityTypeConfiguration<Categoria>
     {
         public void Configure(EntityTypeBuilder<Categoria> builder)
