@@ -13,7 +13,7 @@ namespace Unicam.Progetto.Libreria.Entities
     public class Utente
     {
 
-        public int UtenteId { get; set; }
+        public int Id { get; set; }
         public string Email { get; set; } = string.Empty;
 
         public string Nome { get; set; } = string.Empty;

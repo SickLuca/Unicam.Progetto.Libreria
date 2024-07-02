@@ -49,7 +49,7 @@ namespace Unicam.Progetto.Libreria.Web.Controllers
                     ResponseFactory.WithSuccess(response));
             }
             // Restituire un errore se la categoria esiste già
-            else return Ok(
+            else return BadRequest(
                     ResponseFactory.WithError("Questa categoria esiste già."));
             
         }
@@ -64,16 +64,11 @@ namespace Unicam.Progetto.Libreria.Web.Controllers
         [Route("remove")]
         public IActionResult RemoveCategoria(CreateDeleteCategoriaRequest deleteCategoriaRequest)
         {
-            // Rimuovere la categoria usando il servizio delle categorie
             if (_categoriaService.RemoveCategoria(deleteCategoriaRequest.Nome))
             {
                 return Ok();
             }
-            else
-            {
-                // Restituire un errore se la categoria non può essere rimossa
-                return BadRequest();
-            }
+            return BadRequest("Alla categoria sono associati dei libri.");
         }
     }
 

@@ -13,9 +13,9 @@ namespace Unicam.Progetto.Libreria.Entities
     public class Categoria
 
     {
-        public int CategoriaId { get; set; }
-        public string NomeCategoria { get; set; }
+        public int Id { get; set; }
+        public string NomeCategoria { get; set; } = string.Empty;
 
-        public virtual ICollection<LibriCategorie> LibriDellaCategoria { get; set; }
+        public virtual ICollection<Libro> Libri{ get; set; } = new List<Libro>();
     }
 }

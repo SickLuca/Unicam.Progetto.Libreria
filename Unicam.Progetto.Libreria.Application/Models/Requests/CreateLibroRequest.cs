@@ -8,17 +8,17 @@ using Unicam.Progetto.Libreria.Models.Entities;
 namespace Unicam.Progetto.Libreria.Application.Models.Requests
 {
     /// <summary>
-    /// Richiesta per la creazione di una nuovo libro.
+    /// Richiesta per la creazione di un nuovo libro.
     /// </summary>
     public class CreateLibroRequest
     {
-        public string Nome { get; set; } = String.Empty;    
+        public string Nome { get; set; } = string.Empty;    
 
-        public string Autore {  get; set; } = String.Empty;
+        public string Autore {  get; set; } = string.Empty;
 
         public DateTime DataPubblicazione { get; set; } = DateTime.MinValue;
 
-        public string Editore {  get; set; } = String.Empty;
+        public string Editore {  get; set; } = string.Empty;
 
         public List<int> CategorieIds { get; set; }
 
@@ -36,7 +36,6 @@ namespace Unicam.Progetto.Libreria.Application.Models.Requests
             libro.Autore = Autore;
             libro.DataPubblicazione = DataPubblicazione;
             libro.Editore = Editore;
-            libro.CategorieDelLibro = new List<LibriCategorie>();
          
             return libro;
 

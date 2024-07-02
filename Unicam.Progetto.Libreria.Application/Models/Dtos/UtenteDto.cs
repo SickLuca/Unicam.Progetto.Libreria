@@ -26,7 +26,7 @@ namespace Unicam.Progetto.Libreria.Application.Models.Dtos
         public UtenteDto(Utente utente)
         {
 
-            UtenteId = utente.UtenteId;
+            UtenteId = utente.Id;
             Nome = utente.Nome;
             Cognome = utente.Cognome;
             Email = utente.Email;

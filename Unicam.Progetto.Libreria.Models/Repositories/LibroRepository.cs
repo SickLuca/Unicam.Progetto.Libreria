@@ -22,21 +22,6 @@ namespace Unicam.Progetto.Libreria.Models.Repositories
 
         }
 
-
-        /// <summary>
-        /// Recupera un libro dal database utilizzando l'ID del libro.
-        /// Include anche le relazioni con le categorie del libro.
-        /// </summary>
-        /// <param name="id">L'ID del libro da recuperare.</param>
-        /// <returns>Il libro corrispondente all'ID fornito, incluse le categorie associate.</returns>
-        public Libro GetLibro(object id)
-        {
-            return _ctx.Set<Libro>().Include(c => c.CategorieDelLibro).Where(x => x.LibroId == (int)id).FirstOrDefault();
-        }
-
-
-
-
         /// <summary>
         /// Recupera una lista di libri dal database utilizzando i criteri di filtro forniti.
         /// </summary>
@@ -78,8 +63,8 @@ namespace Unicam.Progetto.Libreria.Models.Repositories
             if (!string.IsNullOrEmpty(categoryName))
             {
                 query = query
-                    .Where(w => w.CategorieDelLibro
-                        .Any(bc => bc.CategoriaJoin.NomeCategoria.ToLower().Contains(categoryName.ToLower())));
+                    .Where(l => l.Categorie
+                        .Any(c => c.NomeCategoria.ToLower().Contains(categoryName.ToLower())));
             }
 
             // Calcolare il numero totale di risultati che corrispondono ai criteri di filtro

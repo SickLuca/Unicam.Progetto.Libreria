@@ -13,7 +13,7 @@ namespace Unicam.Progetto.Libreria.Models.Entities
     /// </summary>
     public class Libro
     {
-        public int LibroId { get; set; }
+        public int Id { get; set; }
         public string Nome { get; set; } = String.Empty;
         public string Autore { get; set; } = String.Empty;  
 
@@ -22,6 +22,6 @@ namespace Unicam.Progetto.Libreria.Models.Entities
         public string Editore { get; set; } = String.Empty;
 
         //prop di navigazione
-        public virtual ICollection<LibriCategorie> CategorieDelLibro { get; set; } = null!; //stiamo forzando che all'interno di questa assegnazione posso mettere il nullo
+        public virtual ICollection<Categoria> Categorie { get; set; } = new List<Categoria>(); //stiamo forzando che all'interno di questa assegnazione posso mettere il nullo
     } 
 }

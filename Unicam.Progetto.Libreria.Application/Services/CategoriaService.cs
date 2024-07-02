@@ -50,15 +50,15 @@ namespace Unicam.Progetto.Libreria.Application.Services
         /// <returns>true se la categoria è stata rimossa con successo, false se la categoria non esiste o ha libri associati.</returns>
         public bool RemoveCategoria(string nome)
         {
-            Categoria categoria = _categoriaRepository.GetByNome(nome);
+            var categoria = _categoriaRepository.GetByNome(nome);
             //controlla che non ci siano libri associati alla categoria e che la categoria esista
-            if (categoria != null && !categoria.LibriDellaCategoria.Any())
+            if (categoria == null || categoria.Libri.Count != 0)
             {
-                _categoriaRepository.Elimina(categoria.CategoriaId);
-                _categoriaRepository.Save();
-                return true;
+                return false;
             }
-            return false;
+            _categoriaRepository.Elimina(categoria.Id);
+            _categoriaRepository.Save();
+            return true;
         }
     }
 }

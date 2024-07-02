@@ -16,15 +16,10 @@ namespace Unicam.Progetto.Libreria.Models.Configurations
     {
         public void Configure(EntityTypeBuilder<Categoria> builder)
         {
-            builder.ToTable("Categoria");
-            builder.HasKey(p => p.CategoriaId);
+            builder.ToTable("Categorie");
+            builder.HasKey(p => p.Id);
             builder.Property(p => p.NomeCategoria)
                 .HasMaxLength(100);
-            //relazione
-            builder
-            .HasMany(c => c.LibriDellaCategoria)
-            .WithOne(bc => bc.CategoriaJoin)
-            .HasForeignKey(bc => bc.CategoriaId);
         }
     }
 }

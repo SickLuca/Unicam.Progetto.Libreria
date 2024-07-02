@@ -28,9 +28,9 @@ namespace Unicam.Progetto.Libreria.Models.Repositories
         /// </summary>
         /// <param name="nome">Il nome della categoria da recuperare.</param>
         /// <returns>La categoria corrispondente al nome fornito, inclusi i libri associati.</returns>
-        public Categoria GetByNome(string nome)
+        public Categoria? GetByNome(string nome)
         {
-            return _ctx.Set<Categoria>().Include(c => c.LibriDellaCategoria).Where(x => x.NomeCategoria.Equals(nome)).FirstOrDefault();
+            return _ctx.Set<Categoria>().Where(c => c.NomeCategoria.Equals(nome)).FirstOrDefault();
         }
 
 
@@ -41,8 +41,7 @@ namespace Unicam.Progetto.Libreria.Models.Repositories
         /// <returns>Una lista di categorie corrispondenti agli identificatori forniti.</returns>
         public List<Categoria> GetCategorieByIds(List<int> categorieIds)
         {
-            return _ctx.Categorie.Where(c => categorieIds.Contains(c.CategoriaId)).ToList();
+            return _ctx.Set<Categoria>().Where(c => categorieIds.Contains(c.Id)).ToList();
         }
-
     }
 }

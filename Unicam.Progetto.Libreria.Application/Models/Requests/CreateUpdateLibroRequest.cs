@@ -27,7 +27,6 @@ namespace Unicam.Progetto.Libreria.Application.Models.Requests
             libro.Autore = Autore;
             libro.DataPubblicazione = DataPubblicazione;
             libro.Editore = Editore;
-            libro.CategorieDelLibro = new List<LibriCategorie>();
             
             return libro;
 

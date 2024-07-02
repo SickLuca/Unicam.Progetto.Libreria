@@ -20,6 +20,6 @@ namespace Unicam.Progetto.Libreria.Application.Abstractions.Services
         /// </summary>
         /// <param name="nome">Il nome della categoria che vogliamo rimuovere</param>
         /// <returns>true se la rimozione viene effettuata, false altrimenti</returns>
-        public bool RemoveCategoria(string nome);
+        bool RemoveCategoria(string nome);
     }
 }

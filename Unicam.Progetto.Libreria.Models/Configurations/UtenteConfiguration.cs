@@ -18,8 +18,9 @@ namespace Unicam.Progetto.Libreria.Models.Configurations
 
         public void Configure(EntityTypeBuilder<Utente> builder)
         {
-            builder.ToTable("Utente");
-            builder.HasKey(p => p.UtenteId);
+            builder.ToTable("Utenti");
+            builder.HasKey(p => p.Id);
+            /*
             builder.Property(p => p.Email)
                 .HasMaxLength(100);
             builder.Property(p => p.Nome)
@@ -28,6 +29,7 @@ namespace Unicam.Progetto.Libreria.Models.Configurations
                 .HasMaxLength(100);
             builder.Property(p => p.Password)
                 .HasMaxLength(100);
+            */
         }
     }
 }

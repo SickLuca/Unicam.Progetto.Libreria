@@ -21,7 +21,6 @@ namespace Unicam.Progetto.Libreria.Application.Services
         // Dipendenza iniettata per ottenere il repository dei libri, il contesto del database e il repository delle categorie
         private readonly LibroRepository _libroRepository;
         private readonly CategoriaRepository _categoriaRepository;
-        private readonly MyDbContext _context;
 
 
         /// <summary>
@@ -30,10 +29,9 @@ namespace Unicam.Progetto.Libreria.Application.Services
         /// <param name="libroRepository">Il repository dei libri.</param>
         /// <param name="context">Il contesto del database.</param>
         /// <param name="categoriaRepository">Il repository delle categorie.</param>
-        public LibroService(LibroRepository libroRepository, MyDbContext context, CategoriaRepository categoriaRepository)
+        public LibroService(LibroRepository libroRepository, CategoriaRepository categoriaRepository)
         {
             _libroRepository = libroRepository;
-            _context = context;
             _categoriaRepository = categoriaRepository;
         }
 
@@ -46,15 +44,11 @@ namespace Unicam.Progetto.Libreria.Application.Services
         /// <param name="categorieIds">Gli ID delle categorie da associare al libro.</param>
         public void AddLibro (Libro libro, List<int> categorieIds) {
             // Carica le categorie esistenti dal database
-            var categorie = _context.Categorie.Where(c => categorieIds.Contains(c.CategoriaId)).ToList();
+            var categorie = _categoriaRepository.GetCategorieByIds(categorieIds);
             // Associa le categorie caricate al libro
             foreach (var categoria in categorie)
             {
-                libro.CategorieDelLibro.Add(new LibriCategorie
-                {
-                    LibroJoin = libro,
-                    CategoriaJoin = categoria
-                });
+                libro.Categorie.Add(categoria);
             }
             _libroRepository.Aggiungi(libro);
             _libroRepository.Save();
@@ -88,9 +82,10 @@ namespace Unicam.Progetto.Libreria.Application.Services
         /// <returns>true se il libro è stato rimosso con successo, false altrimenti.</returns>
         public bool RemoveLibro(int id)
         {
-            if (_libroRepository.GetLibro(id) != null)
+            var libro = _libroRepository.Ottieni(id);
+            if (libro != null)
             {
-                _libroRepository.Delete(_libroRepository.GetLibro(id));
+                _libroRepository.Delete(libro);
                 _libroRepository.Save();
                 return true;
             }
@@ -112,7 +107,7 @@ namespace Unicam.Progetto.Libreria.Application.Services
         public bool UpdateLibro(int id, string nome, string autore, string editore, DateTime data, List<int> categorie)
         {
             // Recupera il libro esistente
-            var libro = _libroRepository.GetLibro(id);
+            var libro = _libroRepository.Ottieni(id);
             if (libro == null)
             {
                 return false;
@@ -128,12 +123,12 @@ namespace Unicam.Progetto.Libreria.Application.Services
             var categorieEntities = _categoriaRepository.GetCategorieByIds(categorie);
 
             // Cancella le categorie attuali del libro
-            libro.CategorieDelLibro.Clear();
+            libro.Categorie.Clear();
 
             // Aggiungi le nuove categorie
             foreach (var categoria in categorieEntities)
             {
-                libro.CategorieDelLibro.Add(new LibriCategorie { LibroId = libro.LibroId, CategoriaId = categoria.CategoriaId });
+                libro.Categorie.Add(categoria);
             }
 
             // Aggiorna il libro nel repository

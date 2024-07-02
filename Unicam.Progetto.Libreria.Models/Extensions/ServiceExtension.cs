@@ -32,6 +32,7 @@ namespace Unicam.Progetto.Libreria.Models.Extensions
             // Configura il contesto del database MyDbContext utilizzando SQL Server e la stringa di connessione dalla configurazione
             services.AddDbContext<MyDbContext>(conf =>
             {
+                conf.UseLazyLoadingProxies();
                 conf.UseSqlServer(configuration.GetConnectionString("MyDbContext"));
             });
 
