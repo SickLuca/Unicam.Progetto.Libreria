@@ -1,21 +1,7 @@
 USE [master]
-/****** Object:  Database [Libreria]    Script Date: 02/07/2024 11.44.49 ******/
-
-IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'Libreria')
-BEGIN
+GO
+/****** Object:  Database [Libreria]    Script Date: 02/07/2024 19.35.52 ******/
 CREATE DATABASE [Libreria]
-END
-GO
-
-USE [Libreria]
-
-GO
-ALTER DATABASE [Libreria] SET COMPATIBILITY_LEVEL = 150
-GO
-IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
-begin
-EXEC [Libreria].[dbo].[sp_fulltext_database] @action = 'enable'
-end
 GO
 ALTER DATABASE [Libreria] SET ANSI_NULL_DEFAULT OFF 
 GO
@@ -81,86 +67,87 @@ ALTER DATABASE [Libreria] SET QUERY_STORE = OFF
 GO
 USE [Libreria]
 GO
-/****** Object:  User [progetto]    Script Date: 02/07/2024 11.44.49 ******/
+/****** Object:  User [progetto]    Script Date: 02/07/2024 19.35.52 ******/
 CREATE USER [progetto] FOR LOGIN [progetto] WITH DEFAULT_SCHEMA=[progetto]
 GO
 ALTER ROLE [db_owner] ADD MEMBER [progetto]
 GO
-/****** Object:  Schema [progetto]    Script Date: 02/07/2024 11.44.49 ******/
+/****** Object:  Schema [progetto]    Script Date: 02/07/2024 19.35.52 ******/
 CREATE SCHEMA [progetto]
 GO
-/****** Object:  Table [dbo].[Categoria]    Script Date: 02/07/2024 11.44.49 ******/
+/****** Object:  Table [dbo].[Categorie]    Script Date: 02/07/2024 19.35.52 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Categoria](
-	[CategoriaId] [int] IDENTITY(1,1) NOT NULL,
+CREATE TABLE [dbo].[Categorie](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[NomeCategoria] [varchar](100) NOT NULL,
  CONSTRAINT [PK_Categoria_1] PRIMARY KEY CLUSTERED 
 (
-	[CategoriaId] ASC
+	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[LibriCategorie]    Script Date: 02/07/2024 11.44.49 ******/
+/****** Object:  Table [dbo].[Libri]    Script Date: 02/07/2024 19.35.52 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[LibriCategorie](
-	[LibroId] [int] NOT NULL,
-	[CategoriaId] [int] NOT NULL,
- CONSTRAINT [PK_LibriCategorie] PRIMARY KEY CLUSTERED 
-(
-	[LibroId] ASC,
-	[CategoriaId] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[Libro]    Script Date: 02/07/2024 11.44.49 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Libro](
-	[LibroId] [int] IDENTITY(1,1) NOT NULL,
+CREATE TABLE [dbo].[Libri](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Nome] [varchar](100) NOT NULL,
 	[Autore] [varchar](100) NOT NULL,
 	[DataPubblicazione] [datetime] NOT NULL,
 	[Editore] [varchar](100) NOT NULL,
  CONSTRAINT [PK_Libro_1] PRIMARY KEY CLUSTERED 
 (
-	[LibroId] ASC
+	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Utente]    Script Date: 02/07/2024 11.44.49 ******/
+/****** Object:  Table [dbo].[LibriCategorie]    Script Date: 02/07/2024 19.35.52 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Utente](
-	[UtenteId] [int] IDENTITY(1,1) NOT NULL,
+CREATE TABLE [dbo].[LibriCategorie](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[LibriId] [int] NOT NULL,
+	[CategorieId] [int] NOT NULL,
+ CONSTRAINT [PK_LibriCategorie] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Utenti]    Script Date: 02/07/2024 19.35.52 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Utenti](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Email] [varchar](100) NOT NULL,
 	[Nome] [varchar](100) NOT NULL,
 	[Cognome] [varchar](100) NOT NULL,
 	[Password] [varchar](100) MASKED WITH (FUNCTION = 'partial(0, "*****", 0)') NOT NULL,
  CONSTRAINT [PK_Utente_1] PRIMARY KEY CLUSTERED 
 (
-	[UtenteId] ASC
+	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [dbo].[LibriCategorie]  WITH CHECK ADD  CONSTRAINT [FK_Categoria_LibriCategorie] FOREIGN KEY([CategoriaId])
-REFERENCES [dbo].[Categoria] ([CategoriaId])
+ALTER TABLE [dbo].[LibriCategorie]  WITH NOCHECK ADD  CONSTRAINT [FK_LibriCategorie_Categorie] FOREIGN KEY([CategorieId])
+REFERENCES [dbo].[Categorie] ([Id])
 GO
-ALTER TABLE [dbo].[LibriCategorie] CHECK CONSTRAINT [FK_Categoria_LibriCategorie]
+ALTER TABLE [dbo].[LibriCategorie] CHECK CONSTRAINT [FK_LibriCategorie_Categorie]
 GO
-ALTER TABLE [dbo].[LibriCategorie]  WITH CHECK ADD  CONSTRAINT [FK_Libro_LibriCategorie] FOREIGN KEY([LibroId])
-REFERENCES [dbo].[Libro] ([LibroId])
+ALTER TABLE [dbo].[LibriCategorie]  WITH CHECK ADD  CONSTRAINT [FK_LibriCategorie_Libri] FOREIGN KEY([LibriId])
+REFERENCES [dbo].[Libri] ([Id])
+ON DELETE CASCADE
 GO
-ALTER TABLE [dbo].[LibriCategorie] CHECK CONSTRAINT [FK_Libro_LibriCategorie]
+ALTER TABLE [dbo].[LibriCategorie] CHECK CONSTRAINT [FK_LibriCategorie_Libri]
 GO
 USE [master]
 GO
