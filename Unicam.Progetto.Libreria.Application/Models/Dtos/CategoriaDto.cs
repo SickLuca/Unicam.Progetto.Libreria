@@ -8,11 +8,13 @@ namespace Unicam.Progetto.Libreria.Application.Models.Dtos
     /// </summary>
     public class CategoriaDto
     { 
+        public int Id {  get; set; }
         public string NomeCategoria { get; set; } = string.Empty;
 
 
         public CategoriaDto(Categoria categoria)
         {
+            Id = categoria.Id;
             NomeCategoria = categoria.NomeCategoria;
         }
     }
